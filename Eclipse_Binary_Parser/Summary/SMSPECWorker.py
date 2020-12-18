@@ -1,4 +1,4 @@
-from BaseBinaryWorker.BinaryWorker import *
+from Eclipse_Binary_Parser.BaseBinaryWorker.BinaryWorker import *
 import pandas as pd
 import datetime as dt
 

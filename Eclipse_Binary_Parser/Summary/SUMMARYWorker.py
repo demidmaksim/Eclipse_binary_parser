@@ -1,5 +1,5 @@
-from Summary.SMSPECWorker import *
-from Summary.UNSMRYWorker import *
+from Eclipse_Binary_Parser.Summary.SMSPECWorker import *
+from Eclipse_Binary_Parser.Summary.UNSMRYWorker import *
 
 
 class SUMMARYHelper:

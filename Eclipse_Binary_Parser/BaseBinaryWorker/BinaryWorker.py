@@ -1,5 +1,5 @@
 import os
-from BaseBinaryWorker.Header.Content import *
+from Eclipse_Binary_Parser.BaseBinaryWorker.Header.Content import *
 
 
 class BinarySave:
