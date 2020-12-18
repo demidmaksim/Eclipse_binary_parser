@@ -4,6 +4,6 @@ from os.path import join, dirname
 setup(
     name='EclipseBinaryParser',
     version='1.0',
-    packages=find_packages(),
+    packages=['EclipseBinaryParser'],
     long_description=open(join(dirname(__file__), 'README.md')).read(),
 )
