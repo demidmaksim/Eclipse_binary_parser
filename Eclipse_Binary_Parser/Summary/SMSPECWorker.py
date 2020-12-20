@@ -116,11 +116,23 @@ class SMSPECWorker(BinaryWorker):
     def get_position(self, name: str, keyword: str, num: int = None) -> int:
         return SMSPECIndexator.get_position(self.storage, name, keyword, num)
 
-    def get_list_position(self, names: list, keywords: list, nums: list = None):
+    def get_list_position(self, names: list, keywords: list,
+                          nums: list = None) -> list:
         positions = list()
         for name_id, name in enumerate(names):
             keyword = keywords[name_id]
             num = nums[name_id]
             ind = SMSPECIndexator.get_position(self.storage, name, keyword, num)
             positions.append(ind)
+        return positions
+
+    def get_vector_of_value(self, values: list, names: list, keywords: list,
+                            nums: list = None) -> np.ndarray:
+        positions = np.zeros(len(names))
+        for name_id, name in enumerate(names):
+            value = values[name_id]
+            keyword = keywords[name_id]
+            num = nums[name_id]
+            ind = SMSPECIndexator.get_position(self.storage, name, keyword, num)
+            positions[ind] = value
         return positions
