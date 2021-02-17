@@ -11,8 +11,8 @@ class BinaryWorker:
     def __init__(self, link):
         self.link: str = link
         self.data = dict()
-        self.HeadConst = HeaderConstructor()
-        self.ContConst = ContentConstructor()
+        self.__HeadConst = HeaderConstructor()
+        self.__ContConst = ContentConstructor()
 
     def _add_data(self, content: Content) -> None:
         if content.header.keyword in self.data.keys():
@@ -27,8 +27,8 @@ class BinaryWorker:
         self.reload_data()
         with open(self.link, 'rb') as file:
             while file.tell() < os.path.getsize(self.link):
-                header = self.HeadConst.from_file(file)
-                content = self.ContConst.from_file(header, file, mode='all')
+                header = self.__HeadConst.from_file(file)
+                content = self.__ContConst.from_file(header, file, mode='all')
                 self._add_data(content)
 
     def reading_definite_part(self, keyword: str,
@@ -39,11 +39,11 @@ class BinaryWorker:
             loaded = 0
             while file.tell() < os.path.getsize(self.link):
                 loaded += 1
-                header = self.HeadConst.from_file(file)
+                header = self.__HeadConst.from_file(file)
                 header.set_limitation(start_reading, len_reading)
                 if keyword == header.keyword:
-                    content = self.ContConst.from_file(header, file,
-                                                       mode='definite')
+                    content = self.__ContConst.from_file(header, file,
+                                                         mode='definite')
                     self._add_data(content)
                 else:
-                    self.ContConst.skip_all_block(header, file)
+                    self.__ContConst.skip_all_block(header, file)

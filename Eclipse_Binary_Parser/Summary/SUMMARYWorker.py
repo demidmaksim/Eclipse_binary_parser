@@ -1,4 +1,4 @@
-from Eclipse_Binary_Parser.Summary.Сomponents.SMSPECWorker import *
+from Eclipse_Binary_Parser.Summary.Сomponents.SMSPEC.SMSPECWorker import *
 from Eclipse_Binary_Parser.Summary.Сomponents.UNSMRYWorker import *
 
 
