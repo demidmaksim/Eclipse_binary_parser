@@ -1,7 +1,7 @@
-from Eclipse_Binary_Parser.Summary.Сomponents.SMSPEC.Time import *
+from .Time import *
 
 
-class SMSPECWorker:
+class SMSPECReader:
     def __init__(self, link: str):
         self.link: str = link
         self.storage: Storage or None = None
@@ -49,25 +49,25 @@ class SMSPECWorker:
 class SMSPECWorkerConstructor:
 
     @staticmethod
-    def from_file(link: str) -> SMSPECWorker:
-        smspec = SMSPECWorker(link)
+    def from_file(link: str) -> SMSPECReader:
+        smspec = SMSPECReader(link)
         SMSPECWorkerConstructor.__create_storage(smspec)
         SMSPECWorkerConstructor.__create_time(smspec)
         SMSPECWorkerConstructor.__create_dimension(smspec)
         return smspec
 
     @staticmethod
-    def __create_storage(smspec: SMSPECWorker) -> None:
+    def __create_storage(smspec: SMSPECReader) -> None:
         storage = StorageConstructor.from_file(smspec.link)
         smspec.storage = storage
 
     @staticmethod
-    def __create_time(smspec: SMSPECWorker) -> None:
+    def __create_time(smspec: SMSPECReader) -> None:
         time = TimeConstructor.from_file(smspec.link, smspec.storage)
         smspec.time = time
 
     @staticmethod
-    def __create_dimension(smspec: SMSPECWorker) -> tuple:
+    def __create_dimension(smspec: SMSPECReader) -> tuple:
         number_of_step = len(smspec.time.dey_vector)
         number_of_word = smspec.storage.get_number_of_word()
         smspec.dimension = (number_of_step, number_of_word)

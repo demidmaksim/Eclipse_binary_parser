@@ -1,4 +1,4 @@
-from Eclipse_Binary_Parser.BaseBinaryWorker.Сomponents.Header import *
+from .Header import *
 import numpy as np
 
 

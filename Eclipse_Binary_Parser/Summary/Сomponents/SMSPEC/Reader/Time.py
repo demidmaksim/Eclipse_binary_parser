@@ -1,5 +1,5 @@
 import datetime as dt
-from Eclipse_Binary_Parser.Summary.Сomponents.SMSPEC.Storage import *
+from .Storage import *
 
 
 class Time:
