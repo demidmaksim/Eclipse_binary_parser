@@ -76,9 +76,14 @@ class TimeConstructor(SMSPECHelper):
     def get_time_vec(link: str, storage: pd.DataFrame) -> np.ndarray:
         unsmry_link = SMSPECHelper.get_unsmry_link(link)
         unsmry_worker = BinaryWorker(unsmry_link)
-        start = np.array([SMSPECIndexator.get_position(storage, '', 'TIME', 0)])
-        length = np.array([1])
-        unsmry_worker.reading_definite_part('PARAMS', start, length)
+        try:
+            start = np.array(
+                [SMSPECIndexator.get_position(storage, '', 'TIME', 0)])
+        except:
+            start = np.array(
+                [SMSPECIndexator.get_position(storage, ':+:+:+:+', 'TIME', 0)])
+
+        unsmry_worker.reading_definite_part('PARAMS', start, np.array([1]))
         time_model = np.array(unsmry_worker.data['PARAMS'].value)
         time_model = time_model.T[0]
         return time_model

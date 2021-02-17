@@ -1,1 +1,1 @@
-from .Summary import SMSPECWorker
+from .Summary import SUMMARYWorker

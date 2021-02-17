@@ -1,5 +1,5 @@
-from Eclipse_Binary_Parser.Summary.SMSPECWorker import *
-from Eclipse_Binary_Parser.Summary.UNSMRYWorker import *
+from Eclipse_Binary_Parser.Summary.Сomponents.SMSPECWorker import *
+from Eclipse_Binary_Parser.Summary.Сomponents.UNSMRYWorker import *
 
 
 class SUMMARYHelper:
@@ -105,6 +105,8 @@ class SummarySave:
 
 class SUMMARYWorker(SUMMARYHelper):
     def __init__(self, link: str):
+        self.SMSPECWorker = None
+        self.UNSMRYWorker = None
         self.__initialization(link)
         self.df = pd.DataFrame()
 
@@ -142,6 +144,12 @@ class SUMMARYWorker(SUMMARYHelper):
     def clear_data_frame(self) -> None:
         self.df = pd.DataFrame()
 
+    def report(self):
+        print(f'SMSPECWorker: {list(self.SMSPECWorker.data.keys())}')
+        print(f'KEYWORDS: '
+              f'{list(pd.unique(self.SMSPECWorker.storage["KEYWORDS"]))}')
+        print(f'WGNAMES: '
+              f'{list(pd.unique(self.SMSPECWorker.storage["WGNAMES"]))}')
 
 class SummaryConstructor:
     def __init__(self):
@@ -167,7 +175,7 @@ class SummaryConstructor:
 
     @staticmethod
     def create_units(keywords: list) -> list:
-        df = pd.read_csv('keyword.txt', sep='\t', index_col=None)
+        df = pd.read_csv('Сomponents/keyword.txt', sep='\t', index_col=None)
         df.replace(np.nan, '', inplace=True)
         units = list()
         for keyword in keywords:
