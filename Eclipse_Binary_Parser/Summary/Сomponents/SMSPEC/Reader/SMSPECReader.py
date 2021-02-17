@@ -19,20 +19,20 @@ class SMSPECReader:
     def __structuring(for_download: list) -> tuple:
         for_download.sort()
         length = [1]
-        start = [for_download[0][0]]
+        start = [for_download[0]]
         for i, point in enumerate(for_download[1:]):
-            if point[0] - for_download[i][0] == 1:
+            if point - for_download[i] == 1:
                 length[-1] += + 1
             else:
                 length.append(1)
-                start.append(for_download[i + 1][0])
+                start.append(for_download[i + 1])
         return np.array(start), np.array(length)
 
     def get_read_vector(self, names: str or list,
                         keywords: str or list,
                         nums: int or list) -> tuple:
 
-        if type(names) == str:
+        if type(names) == str or names is None:
             position = self.storage.get_position(names, keywords, nums)
             return np.array([position]), np.array([1])
         elif type(names) == list:
