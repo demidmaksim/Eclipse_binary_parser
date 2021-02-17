@@ -1,7 +1,30 @@
 from Eclipse_Binary_Parser.Summary.Сomponents.SMSPEC.SMSPECWorker import *
-from Eclipse_Binary_Parser.Summary.Сomponents.UNSMRYWorker import *
+from Eclipse_Binary_Parser.Summary.Сomponents.UNSMRY.UNSMRYLoader import *
 
 
+class SUMMARYWorker:
+
+    def __init__(self, smspec_link: str):
+        self.SMSPEC = SMSPECWorkerConstructor.from_file(smspec_link)
+        self.UNSMRY = UNSMRYLoader(smspec_link.replace('SMSPEC', 'UNSMRY'))
+
+    def __get_dimension(self, names: str or list):
+        time_length = self.SMSPEC.time.get_number_of_step()
+        if type(names) == list:
+            name_length = len(names)
+        else:
+            name_length = 1
+        return time_length, name_length
+
+    def get(self, names: str or list, keywords: str or list, nums: str or list):
+        start, length = self.SMSPEC.get_read_vector(names, keywords, nums)
+        dimension = self.__get_dimension(names)
+        results = self.UNSMRY.get_from_file(start, length, dimension)
+        return results
+
+
+
+"""
 class SUMMARYHelper:
 
     @staticmethod
@@ -13,18 +36,7 @@ class SUMMARYHelper:
     def get_key(name: str, keyword: str, num: int) -> str:
         return f'{name}/{keyword}/{str(num)}'
 
-    @staticmethod
-    def structuring(for_download: list) -> tuple:
-        for_download.sort()
-        length = [1]
-        start = [for_download[0][0]]
-        for i, point in enumerate(for_download[1:]):
-            if point[0] - for_download[i][0] == 1:
-                length[-1] += + 1
-            else:
-                length.append(1)
-                start.append(for_download[i + 1][0])
-        return np.array(start), np.array(length)
+
 
     def get_key_list(self, position: list) -> list:
         position.sort()
@@ -151,6 +163,7 @@ class SUMMARYWorker(SUMMARYHelper):
         print(f'WGNAMES: '
               f'{list(pd.unique(self.SMSPECWorker.storage["WGNAMES"]))}')
 
+
 class SummaryConstructor:
     def __init__(self):
         pass
@@ -175,7 +188,7 @@ class SummaryConstructor:
 
     @staticmethod
     def create_units(keywords: list) -> list:
-        df = pd.read_csv('Сomponents/keyword.txt', sep='\t', index_col=None)
+        df = pd.read_csv('Сomponents/UNSMRY/keyword.txt', sep='\t', index_col=None)
         df.replace(np.nan, '', inplace=True)
         units = list()
         for keyword in keywords:
@@ -226,3 +239,4 @@ class SummaryConstructor:
         data_for_save = SummaryConstructor.create_bytes_string(data)
         with open(link, 'wb') as file:
             file.write(data_for_save)
+"""

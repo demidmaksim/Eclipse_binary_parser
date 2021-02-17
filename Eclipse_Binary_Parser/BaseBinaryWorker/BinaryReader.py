@@ -1,5 +1,5 @@
 import os
-from Eclipse_Binary_Parser.BaseBinaryWorker.Header.Content import *
+from Eclipse_Binary_Parser.BaseBinaryWorker.Сomponents.Content import *
 
 
 class BinarySave:
@@ -7,8 +7,8 @@ class BinarySave:
         pass
 
 
-class BinaryWorker:
-    def __init__(self, link):
+class BinaryReader:
+    def __init__(self, link: str):
         self.link: str = link
         self.data = dict()
         self.__HeadConst = HeaderConstructor()
