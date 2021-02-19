@@ -16,7 +16,10 @@ class SUMMARYReader:
             name_length = 1
         return time_length, name_length
 
-    def get(self, names: str or list, keywords: str or list, nums: str or list):
+    def get_position_matrix(self, names: str or list, keywords: str or list, nums: int or list):
+        return self.SMSPEC.get_position_matrix(names, keywords, nums)
+
+    def get(self, names: str or list, keywords: str or list, nums: int or list):
         start, length = self.SMSPEC.get_read_vector(names, keywords, nums)
         dimension = self.__get_dimension(names)
         results = self.UNSMRY.get_from_file(start, length, dimension)

@@ -28,6 +28,26 @@ class SMSPECReader:
                 start.append(for_download[i + 1])
         return np.array(start), np.array(length)
 
+    def get_position_matrix(self, names: str or list,
+                            keywords: str or list,
+                            nums: int or list):
+        if type(names) == str or names is None:
+            return [names, keywords, nums]
+        elif type(names) == list:
+            positions_matrix = []
+            for name_id, name in enumerate(names):
+                keyword = keywords[name_id]
+                num = nums[name_id]
+                position = self.storage.get_position(name, keyword, num)
+                positions_matrix.append([position, name, keyword, num])
+
+            positions_matrix.sort()
+            new_position = []
+            for position in positions_matrix:
+                new_position.append(position[1:])
+
+            return new_position
+
     def get_read_vector(self, names: str or list,
                         keywords: str or list,
                         nums: int or list) -> tuple:
