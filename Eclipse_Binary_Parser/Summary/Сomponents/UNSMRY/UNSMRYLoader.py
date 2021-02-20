@@ -24,7 +24,8 @@ class UNSMRYLoader:
     def __init__(self, link):
         self.link = link
 
-    def get_from_file(self, start: list, length: list, dimension: tuple):
+    def get_from_file(self, start: list, length: list,
+                      dimension: tuple) -> np.array or list:
         binary_file = BinaryReader(self.link, dimension)
         binary_file.reading_definite_part('PARAMS', start, length)
         return binary_file.results.value

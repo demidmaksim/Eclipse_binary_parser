@@ -1,1 +1,2 @@
-from .Summary import SUMMARYReader
+from .Summary.Сomponents import SUMMARYReader
+from .Summary.SUMMARY import SUMMARY

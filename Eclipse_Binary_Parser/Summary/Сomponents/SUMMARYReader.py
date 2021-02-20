@@ -1,5 +1,6 @@
-from .Сomponents.SMSPEC.Reader.SMSPECReader import *
-from .Сomponents.UNSMRY.UNSMRYLoader import *
+from Eclipse_Binary_Parser.Summary.Сomponents.SMSPEC.Reader.SMSPECReader import *
+from Eclipse_Binary_Parser.Summary.Сomponents.UNSMRY.UNSMRYLoader import *
+from Eclipse_Binary_Parser.Summary.SUMMARY import *
 
 
 class SUMMARYReader:
@@ -16,11 +17,12 @@ class SUMMARYReader:
             name_length = 1
         return time_length, name_length
 
-    def get_position_matrix(self, names: str or list, keywords: str or list, nums: int or list):
-        return self.SMSPEC.get_position_matrix(names, keywords, nums)
+    def get(self, names: str or list, keywords: str or list,
+            nums: int or list) -> SUMMARY:
 
-    def get(self, names: str or list, keywords: str or list, nums: int or list):
         start, length = self.SMSPEC.get_read_vector(names, keywords, nums)
         dimension = self.__get_dimension(names)
-        results = self.UNSMRY.get_from_file(start, length, dimension)
-        return results
+        data = self.UNSMRY.get_from_file(start, length, dimension)
+        position_matrix = self.SMSPEC.get_position_matrix(names, keywords, nums)
+
+        return SUMMARY(position_matrix, data)
